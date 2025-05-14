@@ -1,0 +1,37 @@
+<div class="tabs">
+  <button (click)="changeTab('actual')" [class.active]="activeTab === 'actual'">Resultado Actual</button>
+  <button (click)="changeTab('historial')" [class.active]="activeTab === 'historial'">Historial de búsquedas</button>
+</div>
+
+<!-- Pestaña: Resultado Actual -->
+<div *ngIf="activeTab === 'actual'" class="tab-content actual">
+  <div class="flex-container">
+    <img [src]="currentGifUrl" alt="Cat GIF" class="gif" />
+    <div class="fact-text">
+      <p>{{ currentFact }}</p>
+      <button (click)="refreshGif()">Refrescar GIF</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pestaña: Historial de búsquedas -->
+<div *ngIf="activeTab === 'historial'" class="tab-content historial">
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Dato</th>
+        <th>Query</th>
+        <th>GIF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of searchHistory">
+        <td>{{ item.date | date:'short' }}</td>
+        <td>{{ item.fact }}</td>
+        <td>{{ item.query }}</td>
+        <td><img [src]="item.gif" alt="GIF" width="100" /></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
